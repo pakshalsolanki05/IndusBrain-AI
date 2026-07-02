@@ -3,43 +3,50 @@
 import Link from "next/link";
 import {
   LayoutDashboard,
-  FileText,
+  FolderOpen,
+  Upload,
   Bot,
-  Wrench,
-  ShieldCheck,
   Network,
+  ShieldCheck,
+  Wrench,
   BarChart3,
   Settings,
 } from "lucide-react";
 
-const menuItems = [
-  { name: "Dashboard", icon: LayoutDashboard, href: "/" },
-  { name: "Documents", icon: FileText, href: "/documents" },
-  { name: "AI Copilot", icon: Bot, href: "/copilot" },
-  { name: "Maintenance", icon: Wrench, href: "/maintenance" },
-  { name: "Compliance", icon: ShieldCheck, href: "/compliance" },
-  { name: "Knowledge Graph", icon: Network, href: "/knowledge-graph" },
-  { name: "Analytics", icon: BarChart3, href: "/analytics" },
-  { name: "Settings", icon: Settings, href: "/settings" },
+const menu = [
+  { title: "Dashboard", icon: LayoutDashboard, href: "/" },
+  { title: "Documents", icon: FolderOpen, href: "/documents" },
+  { title: "Upload", icon: Upload, href: "/upload" },
+  { title: "AI Copilot", icon: Bot, href: "/copilot" },
+  { title: "Knowledge Graph", icon: Network, href: "#" },
+  { title: "Maintenance", icon: Wrench, href: "#" },
+  { title: "Compliance", icon: ShieldCheck, href: "#" },
+  { title: "Analytics", icon: BarChart3, href: "#" },
+  { title: "Settings", icon: Settings, href: "#" },
 ];
 
 export default function Sidebar() {
   return (
-    <aside className="w-64 min-h-screen bg-slate-900 text-white p-6">
-      <h1 className="text-2xl font-bold mb-8">IndusBrain AI</h1>
+    <aside className="w-72 bg-slate-900 text-white flex flex-col">
+      <div className="border-b border-slate-700 p-6">
+        <h1 className="text-3xl font-bold">IndusBrain AI</h1>
+        <p className="text-sm text-slate-400 mt-1">
+          Industrial Intelligence
+        </p>
+      </div>
 
-      <nav className="space-y-2">
-        {menuItems.map((item) => {
+      <nav className="flex-1 p-4 space-y-2">
+        {menu.map((item) => {
           const Icon = item.icon;
 
           return (
             <Link
-              key={item.name}
+              key={item.title}
               href={item.href}
-              className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-slate-800 transition"
+              className="flex items-center gap-3 rounded-lg p-3 hover:bg-slate-800 transition"
             >
               <Icon size={20} />
-              <span>{item.name}</span>
+              <span>{item.title}</span>
             </Link>
           );
         })}

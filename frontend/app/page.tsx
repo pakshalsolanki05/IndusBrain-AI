@@ -1,19 +1,10 @@
-import Sidebar from "@/components/layout/Sidebar";
+import AppLayout from "@/components/layout/AppLayout";
+import Dashboard from "@/components/dashboard/Dashboard";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="flex">
-      <Sidebar />
-
-      <section className="flex-1 bg-slate-100 min-h-screen p-10">
-        <h1 className="text-4xl font-bold">
-          Dashboard
-        </h1>
-
-        <p className="mt-3 text-slate-600">
-          Welcome to IndusBrain AI
-        </p>
-      </section>
-    </main>
+    <AppLayout>
+      <Dashboard />
+    </AppLayout>
   );
 }
