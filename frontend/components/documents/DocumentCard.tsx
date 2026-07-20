@@ -1,70 +1,69 @@
-import { FileText } from "lucide-react";
-import { Document } from "@/types/document";
+"use client";
 
 interface Props {
-  document: Document;
+  document: any;
+  onOpen: () => void;
+  onDelete: () => void;
 }
 
-export default function DocumentCard({ document }: Props) {
+export default function DocumentCard({
+  document,
+  onOpen,
+  onDelete,
+}: Props) {
+
   return (
-    <div className="border rounded-xl p-5 shadow hover:shadow-lg transition">
 
-      <div className="flex justify-between items-center">
+    <div className="rounded-xl bg-white shadow border p-6">
 
-        <div className="flex gap-3">
+      <h2 className="text-2xl font-semibold">
+        📄 {document.filename}
+      </h2>
 
-          <FileText className="text-blue-600" size={30} />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
 
-          <div>
-
-            <h2 className="font-bold">
-              {document.filename}
-            </h2>
-
-            <p className="text-sm text-gray-500">
-              {document.file_type}
-            </p>
-
-          </div>
-
+        <div>
+          <p className="text-gray-500">Type</p>
+          <p>{document.file_type}</p>
         </div>
 
+        <div>
+          <p className="text-gray-500">Pages</p>
+          <p>{document.pages}</p>
+        </div>
+
+        <div>
+          <p className="text-gray-500">Words</p>
+          <p>{document.words}</p>
+        </div>
+
+        <div>
+          <p className="text-gray-500">Size</p>
+          <p>{document.size_kb} KB</p>
+        </div>
+
+      </div>
+
+      <div className="flex gap-3 mt-6">
+
         <button
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+          onClick={onOpen}
+          className="px-5 py-2 rounded-lg bg-blue-600 text-white"
         >
-          Chat
+          Open
+        </button>
+
+        <button
+          onClick={onDelete}
+          className="px-5 py-2 rounded-lg bg-red-600 text-white"
+        >
+          Delete
         </button>
 
       </div>
 
-      <div className="mt-4 grid grid-cols-4 gap-4 text-sm">
-
-        <div>
-          <strong>Pages</strong>
-          <br />
-          {document.pages}
-        </div>
-
-        <div>
-          <strong>Words</strong>
-          <br />
-          {document.words}
-        </div>
-
-        <div>
-          <strong>Characters</strong>
-          <br />
-          {document.characters}
-        </div>
-
-        <div>
-          <strong>Size</strong>
-          <br />
-          {document.size_kb} KB
-        </div>
-
-      </div>
-
     </div>
+
   );
+
 }

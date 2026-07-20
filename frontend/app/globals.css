@@ -123,8 +123,109 @@
   }
   body {
     @apply bg-background text-foreground;
+    transition:
+      background-color 300ms ease,
+      color 300ms ease;
   }
   html {
     @apply font-sans;
   }
+}
+.prose {
+  max-width: none;
+}
+
+.prose pre {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+.dark .prose pre {
+  background: #0f172a;
+}
+
+.dark .prose code {
+  color: #e2e8f0;
+}
+
+.prose code {
+  font-size: 0.9rem;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.prose table th,
+.prose table td {
+  border: 1px solid #d1d5db;
+  padding: 0.5rem;
+}
+
+.dark .prose table th,
+.dark .prose table td {
+  border-color: #475569;
+}
+
+.prose blockquote {
+  border-left: 4px solid #22c55e;
+  padding-left: 1rem;
+  color: #4b5563;
+}
+
+.dark .prose blockquote {
+  color: #cbd5e1;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  font-weight: 700;
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+}
+
+/* =========================
+   Custom Scrollbar
+========================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+::selection {
+  background: rgb(37 99 235 / 30%);
+}
+button,
+input,
+textarea,
+select {
+  transition: all 0.2s ease;
 }

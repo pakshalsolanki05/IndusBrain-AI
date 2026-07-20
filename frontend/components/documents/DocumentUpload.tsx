@@ -1,44 +1,61 @@
 "use client";
+
 import { useDashboard } from "@/context/DashboardContext";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { UploadCloud, FileText, CheckCircle } from "lucide-react";
-import axios from "axios";
+import { UploadCloud, CheckCircle } from "lucide-react";
+import { api } from "@/lib/api";
 
-export default function DocumentUpload() {
+interface DocumentUploadProps {
+  onUploadSuccess?: (documentId: number) => void;
+}
+
+export default function DocumentUpload({
+  onUploadSuccess,
+}: DocumentUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
+
   const { refreshDashboard } = useDashboard();
 
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    if (acceptedFiles.length === 0) return;
+  const onDrop = useCallback(
+    async (acceptedFiles: File[]) => {
+      if (acceptedFiles.length === 0) return;
 
-    const file = acceptedFiles[0];
+      const file = acceptedFiles[0];
 
-    const formData = new FormData();
-    formData.append("file", file);
+      const formData = new FormData();
+      formData.append("file", file);
 
-    try {
-      setUploading(true);
+      try {
+        setUploading(true);
 
-      await axios.post(
-        "http://127.0.0.1:8000/upload/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+        const response = await api.post(
+          "/upload/",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        refreshDashboard();
+
+        if (onUploadSuccess) {
+          onUploadSuccess(response.data.document_id);
         }
-      );
-      refreshDashboard();
-      setMessage("✅ Document uploaded successfully.");
-    } catch (err) {
-      console.error(err);
-      setMessage("❌ Upload failed.");
-    }
 
-    setUploading(false);
-  }, []);
+        setMessage("✅ Document uploaded successfully.");
+      } catch (err) {
+        console.error(err);
+        setMessage("❌ Upload failed.");
+      } finally {
+        setUploading(false);
+      }
+    },
+    [refreshDashboard, onUploadSuccess]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -71,6 +88,7 @@ export default function DocumentUpload() {
           </p>
 
         </div>
+
       </div>
 
       {uploading && (
@@ -85,6 +103,7 @@ export default function DocumentUpload() {
           {message}
         </div>
       )}
+
     </div>
   );
 }

@@ -1,5 +1,10 @@
+import AppLayout from "@/components/layout/AppLayout";
 import AICopilot from "@/components/workspace/AICopilot";
 
 export default function CopilotPage() {
-  return <AICopilot />;
+  return (
+    <AppLayout>
+      <AICopilot />
+    </AppLayout>
+  );
 }

@@ -1,17 +1,59 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=800,
+    chunk_overlap=150,
+    separators=[
+        "\n\n",
+        "\n",
+        ".",
+        " ",
+        "",
+    ],
+)
+
+
 def chunk_document(text: str):
     """
-    Split extracted document text into overlapping chunks
-    suitable for vector embeddings.
+    Existing chunker.
+    Used by older parts of the application.
     """
 
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=800,
-        chunk_overlap=150,
-        separators=["\n\n", "\n", ".", " ", ""]
-    )
+    return splitter.split_text(text)
 
-    chunks = splitter.split_text(text)
 
-    return chunks
+def chunk_document_with_pages(page_texts):
+    """
+    Chunk every page individually while preserving
+    the original PDF page number.
+
+    Returns:
+    [
+        {
+            "text": "...chunk...",
+            "page": 1,
+        },
+        ...
+    ]
+    """
+
+    page_chunks = []
+
+    for page in page_texts:
+
+        page_number = page["page"]
+
+        text = page["text"]
+
+        chunks = splitter.split_text(text)
+
+        for chunk in chunks:
+
+            page_chunks.append(
+                {
+                    "text": chunk,
+                    "page": page_number,
+                }
+            )
+
+    return page_chunks

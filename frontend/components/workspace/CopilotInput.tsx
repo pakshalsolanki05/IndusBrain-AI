@@ -4,7 +4,7 @@ interface Props {
   askAI: () => void;
 }
 
-export default function ChatInput({
+export default function CopilotInput({
   question,
   setQuestion,
   askAI,

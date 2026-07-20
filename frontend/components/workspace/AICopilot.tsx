@@ -4,6 +4,7 @@ import { useState } from "react";
 import { api } from "@/lib/api";
 import Conversation from "./Conversation";
 import { ChatMessage } from "@/types/chat";
+import CopilotInput from "./CopilotInput";
 
 export default function AICopilot() {
   const [question, setQuestion] = useState("");

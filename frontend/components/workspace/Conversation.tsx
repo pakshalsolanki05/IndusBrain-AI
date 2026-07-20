@@ -1,4 +1,4 @@
-import ChatInput from "./ChatInput";
+import CopilotInput from "./CopilotInput";
 import ChatWindow from "./ChatWindow";
 
 interface Props {
@@ -24,7 +24,7 @@ export default function Conversation({
         loading={loading}
       />
 
-      <ChatInput
+      <CopilotInput
         question={question}
         setQuestion={setQuestion}
         askAI={askAI}

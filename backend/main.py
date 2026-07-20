@@ -1,9 +1,19 @@
+from dotenv import load_dotenv
+
+load_dotenv()
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database.database import Base, engine
-from app.models import document
+from app.models import (
+    document,
+    entity,
+    relationship,
+    analysis,
+    chat_message,
+    user,
+)
 from app.api.api import router
-from app.database.database import Base, engine
+from fastapi.staticfiles import StaticFiles
 
 Base.metadata.create_all(bind=engine)
 
@@ -13,12 +23,16 @@ app = FastAPI(
     version="1.0.0"
 )
 
+app.mount(
+    "/uploads",
+    StaticFiles(directory="uploads"),
+    name="uploads",
+)
 # Allow frontend to access backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "http://127.0.0.1:3000",
     ],
     allow_credentials=True,
     allow_methods=["*"],
