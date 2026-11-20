@@ -206,7 +206,7 @@ Create a `.env` file inside the backend directory.
 Example:
 
 ```env
-SECRET_KEY=2650082d90e346d3aac43b63c83f5766c6ef461ae10b3f2e1d5dbd970c8cfb3e5b951bfaead8d8a70b1b246e5fe74d3488e7908f20e9dc6ca46bc8c79debeb0d
+SECRET_KEY=YOUR_SECRET_KEY
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 OLLAMA_MODEL=qwen2.5:3b
